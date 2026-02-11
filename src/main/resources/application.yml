@@ -9,8 +9,8 @@ spring:
 
   datasource:
     url: jdbc:postgresql://localhost:5432/blogging_platform_backend
-    username: postgres
-    password: 123456
+    username: ${USER}
+    password: ${PASSWORD}
 
   jpa:
     hibernate:
