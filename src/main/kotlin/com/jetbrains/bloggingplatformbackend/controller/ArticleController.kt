@@ -24,7 +24,7 @@ class ArticleController(
     private val userService: UserService
 ) {
     @GetMapping
-    fun findAll(): ResponseEntity<*> {
+    fun findAll(): ResponseEntity<GlobalResponse<List<ArticleDto>>> {
         val articles = articleService.findAll().map { it.toDto() }
         return ResponseEntity(
             GlobalResponse(articles),

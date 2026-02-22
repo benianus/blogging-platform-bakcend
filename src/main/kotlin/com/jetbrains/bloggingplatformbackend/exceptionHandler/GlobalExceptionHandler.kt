@@ -1,6 +1,7 @@
 package com.jetbrains.bloggingplatformbackend.exceptionHandler
 
 import com.jetbrains.bloggingplatformbackend.exceptionHandler.GlobalResponse.ErrorItem
+import io.jsonwebtoken.ExpiredJwtException
 import jakarta.validation.ValidationException
 import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatusCode
@@ -43,4 +44,10 @@ class GlobalExceptionHandler {
             HttpStatus.UNAUTHORIZED
         )
 
+    @ExceptionHandler(ExpiredJwtException::class)
+    fun handleExpiredJwtException(e: ExpiredJwtException): ResponseEntity<*> =
+        ResponseEntity(
+            GlobalResponse<ErrorItem>(errors = listOf(ErrorItem(e.message))),
+            HttpStatus.UNAUTHORIZED
+        )
 }
