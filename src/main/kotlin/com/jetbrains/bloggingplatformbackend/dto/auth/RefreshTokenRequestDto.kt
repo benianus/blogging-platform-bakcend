@@ -1,5 +1,5 @@
 package com.jetbrains.bloggingplatformbackend.dto.auth
 
-data class RefreshTokenRequest(
+data class RefreshTokenRequestDto(
     val refreshToken: String
 )

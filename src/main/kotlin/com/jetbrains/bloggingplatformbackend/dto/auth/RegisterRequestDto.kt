@@ -15,5 +15,5 @@ data class RegisterRequestDto(
     @NotNull(message = "password is required")
     @Pattern(regexp = "^[a-zA-Z0-9_]{3,16}$")
     @Size(min = 6, message = "min characters is 6")
-    val password: String
+    val password: String,
 )

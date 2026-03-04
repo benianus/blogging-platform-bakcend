@@ -28,16 +28,14 @@ class SecurityConfig(
             .cors { it.disable() }
             .csrf { it.disable() }
             .authorizeHttpRequests {
-//                it.requestMatchers("/api/v1/auth/**").permitAll()
-//                    .requestMatchers(
-//                        "/api/v1/users/**",
-//                        "/api/v1/articles/**"
-//                    ).hasAnyRole("USER", "ADMIN")
-//                    .anyRequest().authenticated()
-                it.anyRequest().permitAll()
-            }
-//            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
-//            .authenticationManager(authenticationManager(httpSecurity))
+                it.requestMatchers("/api/v1/auth/**").permitAll()
+                    .requestMatchers(
+                        "/api/v1/users/**",
+                        "/api/v1/articles/**"
+                    ).hasAnyRole("USER", "ADMIN")
+                    .anyRequest().authenticated()
+            }.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
+            .authenticationManager(authenticationManager(httpSecurity))
             .build()
 
     @Bean

@@ -4,8 +4,11 @@ import com.jetbrains.bloggingplatformbackend.abstracts.ArticleService
 import com.jetbrains.bloggingplatformbackend.entity.Article
 import com.jetbrains.bloggingplatformbackend.exceptionHandler.CustomExceptionHandler
 import com.jetbrains.bloggingplatformbackend.repository.ArticleRepository
+import com.jetbrains.bloggingplatformbackend.repository.UserRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
@@ -13,8 +16,14 @@ import java.util.UUID
 @Service
 class ArticleServiceImpl(
     private val articleRepository: ArticleRepository,
+    private val userRepository: UserRepository
 ) : ArticleService {
-    override fun findAll(): List<Article> = articleRepository.findAll()
+    override fun findAll(): List<Article> {
+        val username = (SecurityContextHolder.getContext().authentication?.principal as UserDetails).username
+        val user = userRepository.findOneByUsername(username)
+            ?: throw CustomExceptionHandler.resourceNotFound("user not found")
+        return articleRepository.findAll()
+    }
 
     override fun findById(id: UUID): Article {
         return articleRepository.findByIdOrNull(id)

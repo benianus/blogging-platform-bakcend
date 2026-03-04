@@ -7,5 +7,5 @@ interface AuthService {
     fun login(loginRequestDto: LoginRequestDto): LoginResponseDto
     fun register(user: User): User
     fun logout()
-    fun refreshToken(refreshTokenRequest: RefreshTokenRequest): RefreshTokenResponse
+    fun refreshToken(refreshTokenRequest: RefreshTokenRequestDto): RefreshTokenResponseDto
 }
